@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Marketplace</title>
+    <style>
+        /* Import the Material U Dark theme */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Define some variables for colors and fonts */
+:root {
+  --primary-color: purple;
+  --secondary-color: #03dac6;
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --error-color: #b00020;
+  --on-primary-color: #ffffff;
+  --on-secondary-color: #000000;
+  --on-background-color: #ffffff;
+  --on-surface-color: #ffffff;
+  --on-error-color: #ffffff;
+  --font-family: 'Roboto', sans-serif;
+}
+
+/* Apply the theme to the body and the html elements */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--on-background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* Add some styling to the forms and the inputs */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--on-surface-color);
+  outline: none;
+}
+
+input:focus {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+input[type="radio"] {
+  display: inline-block;
+  width: auto;
+  margin: 5px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: var(--on-primary-color);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #03000b;
+}
+
+button:disabled {
+  background-color: #bb86fc;
+  color: #000000;
+  cursor: not-allowed;
+}
+
+/* Add some styling to the divs and the paragraphs */
+div {
+  padding: 20px;
+}
+
+p {
+  text-align: center;
+}
+
+#success-message {
+  background-color: var(--secondary-color);
+  color: var(--on-secondary-color);
+}
+
+#resetError {
+  background-color: var(--error-color);
+  color: var(--on-error-color);
+}
+
+/* Add some animation to the forms when switching between them */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.slide-in {
+  animation: slide-in 0.5s ease-in-out;
+}
+
+.slide-out {
+  animation: slide-out 0.5s ease-in-out;
+}
+/* Add a container div to wrap all the elements */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Add this to the body element */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--on-background-color);
+  /* Add this line to remove the default margin */
+  margin: 0;
+}
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 70px; /* Adjust as needed */
+}
+
+ /* Add some animations for the input and button elements */
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+input, button {
+  animation: slide-in 0.5s ease-in-out;
+}
+
+
+
+
+
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1 style="font-family: 'Dancing Script', cursive; color: white;">Travel Marketplace</h1>
+    <div class="container">
+    <!-- Sign Up form -->
+    <div id="signupForm" style="display: block;">
+        <h2>Sign Up</h2>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <!-- Add radio buttons for selecting user or business during registration -->
+            <input type="radio" id="userRole" name="role" value="user" checked>
+            <label for="userRole">Register as User</label>
+            <input type="radio" id="businessRole" name="role" value="business">
+            <label for="businessRole">Register as Business</label>
+            <button type="submit" id="signupButton">Sign Up</button>
+        </form>
+        <p>Already a User? <a href="#" id="switchToLogin">Login</a></p>
+    </div>
+
+    <!-- Login form -->
+    <div id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <form>
+            <label for="loginEmail">Email:</label>
+            <input type="text" id="loginEmail" name="loginEmail">
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="loginPassword">
+            <button type="submit" id="loginButton">Login</button>
+        </form>
+        <a href="#" id="switchToReset">Forgot password?</a>
+        <p>No Account? <a href="#" id="switchToSignup">Create One</a></p>
+    </div>
+    <!-- Verification form -->
+    <div id="verificationForm" style="display: none;">
+        <h2>Enter Verification Code</h2>
+        <form>
+            <label for="verificationCode">Verification Code:</label>
+            <input type="text" id="verificationCode" name="verificationCode">
+            <button type="submit" id="verifyButton">Verify</button>
+        </form>
+
+    </div>
+    <div id="success-message" style="display: none;">
+        <p>Successfully logged in!</p>
+    </div>
+    <!-- Password Reset Request form -->
+    <div id="passwordResetRequestForm" style="display: none;">
+        <h2>Reset Password</h2>
+        <form>
+            <label for="resetEmail">Email:</label>
+            <input type="text" id="resetEmail" name="resetEmail">
+            <button type="submit" id="resetButton">Reset Password</button>
+        </form>
+        <p>Remember your password? <a href="#" id="switchToLoginFromReset">Login</a></p>
+    </div>
+    <div id="resetError" style="display: none;">
+        <!-- Error messages will be inserted here -->
+    </div>
+    <div id="resetInstructions" style="display: none;">
+        <!-- Instructions will be inserted here -->
+    </div>
+</div>
+    <script src="register.js"></script>
+</body>
+
+</html>

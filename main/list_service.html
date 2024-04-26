@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Your Service</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Define some variables for colors, fonts, and sizes */
+        :root {
+            --primary-color: #6200EE;
+            /* A purple color */
+            --secondary-color: #03DAC6;
+            /* A teal color */
+            --background-color: #121212;
+            /* A dark gray color */
+            --surface-color: #1F1F1F;
+            /* A slightly lighter gray color */
+            --error-color: #CF6679;
+            /* A pink color */
+            --on-primary-color: #FFFFFF;
+            /* A white color */
+            --on-secondary-color: #000000;
+            /* A black color */
+            --on-background-color: #FFFFFF;
+            /* A white color */
+            --on-surface-color: #FFFFFF;
+            /* A white color */
+            --on-error-color: #000000;
+            /* A black color */
+
+            --font-family: "Roboto", sans-serif;
+            /* A sans-serif font */
+            --font-size: 16px;
+            /* A base font size */
+            --font-weight: 400;
+            /* A normal font weight */
+            --line-height: 1.5;
+            /* A normal line height */
+
+            --border-radius: 4px;
+            /* A small border radius */
+            --padding: 16px;
+            /* A base padding size */
+            --margin: 16px;
+            /* A base margin size */
+            --transition-duration: 0.3s;
+            /* A base transition duration */
+            --transition-timing-function: ease-in-out;
+            /* A base transition timing function */
+        }
+
+        /* Set the background color and font properties for the body element */
+        body {
+            background-color: var(--background-color);
+            font-family: var(--font-family);
+            font-size: var(--font-size);
+            font-weight: var(--font-weight);
+            line-height: var(--line-height);
+            color: var(--on-background-color);
+        }
+
+        /* Center the h1 element and add some margin */
+        h1 {
+            text-align: center;
+            margin: var(--margin) 0;
+        }
+
+        /* Style the form element with a surface color and a box shadow */
+        form {
+            background-color: var(--surface-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--padding);
+        }
+
+        /* Style the label elements with a secondary color and a bold font weight */
+        label {
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Style the input and textarea elements with a border and some padding */
+        input,
+        textarea {
+            border: 1px solid var(--on-surface-color);
+            border-radius: var(--border-radius);
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Add some margin to the input and textarea elements */
+        input+input,
+        textarea {
+            margin-top: var(--margin);
+        }
+
+        /* Change the border color and background color of the input and textarea elements when they are focused */
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            background-color: var(--background-color);
+            outline: none;
+            color: white;
+        }
+
+        /* Add a hover effect to the submit button */
+        input[type="submit"] {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            cursor: pointer;
+            transition: transform var(--transition-duration) var(--transition-timing-function);
+        }
+
+        input[type="submit"]:hover {
+            transform: scale(1.1);
+        }
+
+        /* Add a shake animation to the input and textarea elements when they are invalid */
+        input:invalid,
+        textarea:invalid {
+            animation: shake 0.5s;
+        }
+
+        /* Define the shake animation */
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(0);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+        .footer {
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in 0.5s ease-out 2s forwards;
+        }
+
+        .developers {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .developer {
+            max-width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .developer img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+
+        .developer p {
+            margin-top: 10px;
+        }
+
+        .developer-info {
+            display: none;
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .developer:hover .developer-info {
+            display: block;
+            opacity: 1;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .copy-right {
+            text-align: center;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modules {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .module {
+                width: calc(50% - 10px);
+            }
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            margin: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #00bfff;
+        }
+    </style>
+    <script src="list_service.js" defer></script>
+   
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <img src="../assets/logo.jpg" alt="Logo" class="logo">
+            <nav class="nav-links">
+                <a href="view_bookings.html" class="nav-item">View Bookings</a>
+                <a href="list_service.html" class="nav-item">List Package</a>
+                <a href="list_packages.html" class="nav-item">Your Packages</a> <!-- Add this line -->
+                <a href="/logout" class="nav-item">Logout</a>
+            </nav>
+        </div>
+        <h1>List Your Travel Service</h1>
+    </header>
+
+    <main>
+        <form id="list-service-form">
+            <label for="name">Service Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" required></textarea><br>
+            <label for="price">Price:</label><br>
+            <input type="number" id="price" name="price" required><br>
+            <label for="date">Date:</label><br>
+            <input type="date" id="date" name="date" required><br>
+            <label for="time">Time:</label><br>
+            <input type="time" id="time" name="time" required><br>
+            <label for="image">Image:</label><br>
+            <input type="file" id="image" name="image" accept=".png, .jpg, .jpeg" required><br>
+            <input type="submit" value="List Service">
+        </form>
+    </main>
+
+    <footer>
+        <div class="footer">
+            <div class="developers">
+                <div class="developer">
+                    <img src="developer1.jpg" alt="Developer 1">
+                    <h4>Name</h4>
+                    <p>Position</p>
+                    <div class="developer-info">
+                        <h4>Developer 1 Info</h4>
+                        <p>Some information about Developer 1...</p>
+                    </div>
+                </div>
+                <div class="developer">
+                    <img src="developer2.jpg" alt="Developer 2">
+                    <h4>Name</h4>
+                    <p>Position</p>
+                    <div class="developer-info">
+                        <h4>Developer 2 Info</h4>
+                        <p>Some information about Developer 2...</p>
+                    </div>
+                </div>
+                <div class="developer">
+                    <img src="developer3.jpg" alt="Developer 3">
+                    <h4>Name</h4>
+                    <p>Position</p>
+                    <div class="developer-info">
+                        <h4>Developer 3 Info</h4>
+                        <p>Some information about Developer 3...</p>
+                    </div>
+                </div>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1413.7941079515387!2d83.96799522923459!3d28.258954936117548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39959481bfe6174f%3A0xb02f1e78598d2986!2sGandaki%20College%20of%20Engineering%20and%20Science!5e0!3m2!1sen!2snp!4v1643724516227!5m2!1sen!2snp" width="500" height="300" style="margin-top: 20px;"></iframe>
+            <div class="info">
+                <div class="info-item">
+                    <img src="../assets/ntb.jpg" alt="Nepal Tourism Board">
+                    <p><a href="https://ntb.gov.np/" style="color: white;">Nepal Tourism Board</a></p>
+
+                </div>
+                <div class="info-item">
+                    <img src="../assets/tourism.png" alt="Tourism Ministry">
+                    <p><a href="https://www.tourism.gov.np/" style="color: white;">Tourism Ministry</a></p>
+                </div>
+                <div class="info-item">
+                    <img src="../assets/gces.png" alt="GCES">
+                    <p><a href="https://www.gces.edu.np/" style="color: white;">Gandaki College of Engineering & Science</a></p>
+                </div>
+            </div>
+            <div class="copy-right">
+                <p>© 2024 Online Travel Marketplace. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

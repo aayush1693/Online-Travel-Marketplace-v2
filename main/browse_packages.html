@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Browse Packages</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="browse_packages.js" defer></script>
+    <style>
+/* Define the colors and fonts for the theme */
+:root {
+    --primary-color: #030007;
+    --primary-variant-color: #3700B3;
+    --secondary-color: #230638;
+    --background-color: #121212;
+    --surface-color: #121212;
+    --error-color: #CF6679;
+    --on-primary-color: #FFFFFF;
+    --on-secondary-color: #000000;
+    --on-background-color: #FFFFFF;
+    --on-surface-color: #FFFFFF;
+    --on-error-color: #000000;
+}
+.hidden {
+    display: none;
+}
+/* Apply a global style to the body and the header */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+    color: white;
+    font-family: var(--font-family);
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+.logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+        }
+/* Style the search form */
+#search-form {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+#search-form label {
+    display: none; /* Hide the label for better design */
+}
+
+#search-form input[type="text"] {
+    width: 80%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    outline: none;
+}
+
+#search-form input[type="submit"] {
+    width: 10%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: var(--on-primary-color);
+    cursor: pointer;
+    transition: transform 0.3s; /* Add a transition effect for the button */
+}
+
+#search-form input[type="submit"]:hover {
+    transform: scale(1.1); /* Make the button slightly bigger when hovered */
+}
+
+/* Style the card container */
+#packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Decrease the minimum size for more cards in a row */
+    grid-gap: 20px;
+    margin: 20px;
+    align-items: stretch; /* Make the cards stretch to the same height */
+}
+
+/* Style each card */
+.package-card {
+    background-color: var(--surface-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 40%;
+    position: relative;
+    padding: 20px; /* Add padding inside the card for better spacing */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Optional: Add a box shadow for a "lifting" effect */
+    transition: all 0.3s ease; /* Add a smooth transition to all elements */
+}
+
+/* Style the card image */
+.package-card img {
+    width: 90%;
+    height: auto;
+    border-radius: 10px; 
+}
+
+/* Style the card title */
+.package-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Style the card description */
+.package-card p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style the card price */
+.package-card span {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* Add a hover effect to the cards */
+.package-card:hover {
+    transform: scale(1.05); /* Slightly increase the size of the card */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+
+/* Style the review form */
+#reviewForm {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: var(--surface-color); /* Use the surface color for the form background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+}
+
+#reviewForm label {
+  font-size: 20px;
+  margin: 10px;
+  color: var(--on-primary-color); /* Use the on-primary color for the label text */
+}
+
+#reviewForm select,
+#reviewForm input,
+#reviewForm textarea {
+  max-width: 80%; /* Use max-width instead of width */
+  border: none; /* Remove the border */
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border with the primary color */
+  border-radius: 0; /* Remove the border radius */
+  padding: 10px;
+  outline: none;
+  background-color: transparent; /* Make the background transparent */
+  color: var(--on-primary-color); /* Use the on-primary color for the input text */
+}
+
+#reviewForm select { /* Corrected selector for the select element */
+  width: 100%; /* Adjust width as needed */
+  border-radius: 4px; /* Optional: add a border-radius */
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Adjusted transitions */
+}
+
+#reviewForm input[type="submit"] {
+  width: 20%;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: var(--secondary-color); /* Use the secondary color for the button background */
+  color: white; /* Use white for the button text */
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s; /* Add a transition effect for the button transform and box-shadow */
+}
+
+#reviewForm input[type="submit"]:hover {
+  transform: scale(1.1); /* Make the button slightly bigger when hovered */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Add a darker shadow effect when hovered */
+}
+
+.footer {
+    background-color: #121212;
+    color: white;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 0.5s ease-out 2s forwards;
+}
+
+.developers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.developer {
+    max-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.developer img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.developer p {
+    margin-top: 10px;
+}
+
+.developer-info {
+    display: none;
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.developer:hover .developer-info {
+    display: block;
+    opacity: 1;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.info-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.copy-right {
+    text-align: center;
+}
+button[type="submit"] {
+    color: black; /* Set the default text color */
+    background-color: white; /* Set the default background color */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s; /* Add a transition effect for text and background color */
+}
+
+button[type="submit"]:hover {
+    color: white; /* Change text color to white on hover */
+    background-color: black; /* Change background color to black on hover */
+}
+
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+iframe {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .modules {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .module {
+        width: calc(50% - 10px);
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #00bfff;
+}
+.review-container {
+    text-align: center;
+    align-items: center;
+}
+#reviewForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: var(--surface-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#h2 {
+  color: var(--on-primary-color);
+  align-items: center;
+  text-align: center;
+}
+#package {
+  max-width: 80%;
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-radius: 0;
+  padding: 10px;
+  outline: none;
+  align-items: center;
+  background-color: transparent;
+  color: var(--on-primary-color);
+}
+#rating {
+  max-width: 80%;
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-radius: 0;
+  padding: 10px;
+  outline: none;
+  align-items: center;
+  background-color: transparent;
+  color: var(--on-primary-color);
+}
+#reviewForm select,
+#reviewForm input,
+#reviewForm textarea {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#reviewForm input[type="submit"] {
+    width: 20%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.container{
+    text-align: center;
+    align-items: center;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <img src="../assets/logo.jpg" alt="Logo" class="logo">
+        <div class="nav-links">
+            <a href="#" class="nav-item">Flights</a>
+            <a href="#" class="nav-item">Hotel</a>
+            <a href="#" class="nav-item">Rental</a>
+            <a href="#" class="nav-item">Deals</a>
+            <a href="/logout" class="nav-item">Logout</a>
+        </div>
+    </div>
+    <header>
+    <div class="container">
+        <h1>Browse Travel Packages</h1>
+    </header>
+        <form id="search-form">
+            <label for="search">Search:</label><br>
+            <input type="text" id="search" name="search">
+            <input type="submit" value="Search">
+        </form>
+        <!-- Create a card for each package -->
+        <div id="packages" class="card-container">
+            <!-- The cards will be generated by your JavaScript code -->
+        </div>
+ <div class="review-container"></div>
+        <h2>Leave a Review</h2>
+
+    <label for="package">Package:</label><br>
+    <select id="package" id="package"></select><br>
+    <form id="reviewForm">
+    <input type="hidden" name="package_id">
+    <label for="rating">Rating:</label><br>
+    <input type="number" id="rating" name="rating" min="1" max="5"><br>
+    <label for="review">Review:</label><br>
+    <textarea id="review" name="review"></textarea><br>
+    <input type="submit" value="Submit Review">
+    </form>
+</div>
+</div>
+    <div class="footer">
+        <div class="developers">
+            <div class="developer">
+                <img src="developer1.jpg" alt="Developer 1">
+                <h4>Name</h4>
+                <p>Position</p>
+                <div class="developer-info">
+                    <h4>Developer 1 Info</h4>
+                    <p>Some information about Developer 1...</p>
+                </div>
+            </div>
+            <div class="developer">
+                <img src="developer2.jpg" alt="Developer 2">
+                <h4>Name</h4>
+                <p>Position</p>
+                <div class="developer-info">
+                    <h4>Developer 2 Info</h4>
+                    <p>Some information about Developer 2...</p>
+                </div>
+            </div>
+            <div class="developer">
+                <img src="developer3.jpg" alt="Developer 3">
+                <h4>Name</h4>
+                <p>Position</p>
+                <div class="developer-info">
+                    <h4>Developer 3 Info</h4>
+                    <p>Some information about Developer 3...</p>
+                </div>
+            </div>
+        </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1413.7941079515387!2d83.96799522923459!3d28.258954936117548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39959481bfe6174f%3A0xb02f1e78598d2986!2sGandaki%20College%20of%20Engineering%20and%20Science!5e0!3m2!1sen!2snp!4v1643724516227!5m2!1sen!2snp"
+            width="500" height="300" style="margin-top: 20px;"></iframe>
+            <div class="info">
+                <div class="info-item">
+                    <img src="../assets/ntb.jpg" alt="Nepal Tourism Board">
+                    <p><a href="https://ntb.gov.np/" style="color: white;">Nepal Tourism Board</a></p>
+
+                </div>
+                <div class="info-item">
+                    <img src="../assets/tourism.png" alt="Tourism Ministry">
+                    <p><a href="https://www.tourism.gov.np/" style="color: white;">Tourism Ministry</a></p>
+                </div>
+                <div class="info-item">
+                    <img src="../assets/gces.png" alt="GCES">
+                    <p><a href="https://www.gces.edu.np/" style="color: white;">Gandaki College of Engineering & Science</a></p>
+                </div>
+            </div>
+        <div class="copy-right">
+            <p>© 2024 Online Travel Marketplace. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>
