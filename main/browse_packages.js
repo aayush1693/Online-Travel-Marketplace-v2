@@ -105,8 +105,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 const option = document.createElement('option');
                 option.value = package.id;
                 option.textContent = package.name;
+                option.style.color = 'black'; // This line sets the text color to black
                 packageSelect.appendChild(option);
             });
+            
         });
 
     const reviewForm = document.getElementById('reviewForm');

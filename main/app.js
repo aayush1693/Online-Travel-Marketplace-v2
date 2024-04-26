@@ -21,7 +21,8 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
-
+// Serve static files from the 'assets' directory
+app.use('/assets', express.static('assets'));
 
 const connection = mysql.createConnection({
   host: 'localhost',
