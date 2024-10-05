@@ -1,7 +1,3 @@
-Here's a draft README.md file based on the available information for the repository [Online-Travel-Marketplace-v2](https://github.com/aayush1693/Online-Travel-Marketplace-v2):
-
----
-
 # Online Travel Marketplace v2
 
 Welcome to the Online Travel Marketplace v2 repository!
