@@ -8,14 +8,11 @@ This project is an online travel marketplace that connects travelers with variou
 
 ## Features
 
-- **Search and Book**: Find and book travel services easily.
+- **Search and Book**: Easily find and book travel services.
 - **User Accounts**: Manage bookings and preferences through user accounts.
 - **Service Provider Integration**: Seamlessly integrate with various travel service providers.
-
-## Technology Stack
-
-- **HTML**: 51.4%
-- **JavaScript**: 48.6%
+- **Real-Time Updates**: Receive real-time updates on bookings and travel statuses.
+- **User Reviews and Ratings**: Read and write reviews for travel services.
 
 ## Getting Started
 
@@ -49,6 +46,14 @@ To get a local copy up and running, follow these simple steps.
    ```
 2. Open your browser and navigate to `http://localhost:3000`.
 
+## Project Structure
+
+Briefly describe the structure of the project and the purpose of key directories and files.
+
+## API Endpoints
+
+List and describe the main API endpoints provided by the server.
+
 ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -66,7 +71,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 - **Author**: [aayush1693](https://github.com/aayush1693)
+- **Repository**: [Online Travel Marketplace v2](https://github.com/aayush1693/Online-Travel-Marketplace-v2)
 
----
-
-Feel free to further customize this README.md file based on additional details or specific requirements for your project.
